@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "db_postagem")
+@Table(name = "tb_postagem")
 public class Postagem {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,8 +34,18 @@ private Date data  = new java.sql.Date(System.currentTimeMillis());
 @JsonIgnoreProperties("postagem")
 private Tema tema;
 
+@ManyToOne
+@JsonIgnoreProperties("postagem")
+private Usuario usuario;
 
 
+
+public Usuario getUsuario() {
+	return usuario;
+}
+public void setUsuario(Usuario usuario) {
+	this.usuario = usuario;
+}
 public Tema getTema() {
 	return tema;
 }
