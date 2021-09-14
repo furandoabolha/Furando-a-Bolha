@@ -49,7 +49,7 @@ private String tipoUsuario;
 @JsonIgnoreProperties("usuario")
 private List<Postagem>postagem;
 
-
+//------------- GETTERS & SETTERS -------------
 
 public LocalDate getDataNascimento() {
 	return dataNascimento;

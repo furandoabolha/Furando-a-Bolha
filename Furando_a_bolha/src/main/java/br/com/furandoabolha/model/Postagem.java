@@ -1,7 +1,10 @@
 package br.com.furandoabolha.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+//import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,11 +16,20 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.CreationTimestamp;
+//import org.hibernate.annotations.UpdateTimestamp;
+
+//import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import br.com.furandoabolha.configure.AlteracaoDataPostagem;
 
 @Entity
 @Table(name = "tb_postagem")
-public class Postagem {
+public class Postagem extends AlteracaoDataPostagem implements Serializable {
+
+	
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,9 +43,20 @@ public class Postagem {
 	@Size(min = 1, max = 1000, message = "O atributo texto deve conter no mínimo 01 e no máximo 1000 caracteres")
 	private String texto;
 
+	@CreationTimestamp
+	@Column(name = "dt_criacao", nullable = false, updatable=false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date data = new java.sql.Date(System.currentTimeMillis());
+	private  Date data = new java.sql.Date(System.currentTimeMillis());
 
+	// Verfifcar na task9
+	//Alteração de data X data fixa de postagem 
+	
+	/*@UpdateTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "dt_alteracao")
+	@JsonFormat(pattern="yyyy-MM-dd  HH:mm")
+	private Date alteracaoData = new java.sql.Date(System.currentTimeMillis());*/	
+	
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
@@ -41,6 +64,8 @@ public class Postagem {
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Usuario usuario;
+
+	//------------- GETTERS & SETTERS -------------
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -89,5 +114,14 @@ public class Postagem {
 	public void setData(Date data) {
 		this.data = data;
 	}
+	
+	
+	/*public Date getAlteracaoData() {
+		return alteracaoData;
+	}
+
+	public void setAlteracaoData(Date alteracaoData) {
+		this.alteracaoData = alteracaoData;
+	}*/
 
 }

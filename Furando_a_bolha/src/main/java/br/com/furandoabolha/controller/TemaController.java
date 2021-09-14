@@ -19,19 +19,19 @@ import br.com.furandoabolha.Repository.TemaRepository;
 import br.com.furandoabolha.model.Tema;
 
 @RestController
-@RequestMapping("/tema")
+@RequestMapping("/temas")
 @CrossOrigin(origins ="*", allowedHeaders = "*")
 public class TemaController {
 	
 	@Autowired
 	private TemaRepository temaRepository;
 	
-	@GetMapping
+	@GetMapping("/all")
 	public ResponseEntity<List<Tema>> getAll(){
 			return ResponseEntity.ok(temaRepository.findAll());
 	}
 	
-	@GetMapping("/id/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Tema> getById(@PathVariable long id){
 		return temaRepository.findById(id)
 				.map(resp -> ResponseEntity.ok(resp))

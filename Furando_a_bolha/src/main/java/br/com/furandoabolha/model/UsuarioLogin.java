@@ -16,7 +16,7 @@ public class UsuarioLogin {
 	
 	private String token;
 	
-	
+	//------------- GETTERS & SETTERS -------------
 	
 	public String getNome() {
 		return nome;

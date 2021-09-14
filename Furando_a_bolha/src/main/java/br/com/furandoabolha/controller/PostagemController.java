@@ -19,18 +19,18 @@ import br.com.furandoabolha.Repository.PostagemRepository;
 import br.com.furandoabolha.model.Postagem;
 
 @RestController
-@RequestMapping ("/postagem")
+@RequestMapping ("/postagens")
 @CrossOrigin (origins = "*", allowedHeaders = "*")
 public class PostagemController {
 	@Autowired
     private PostagemRepository postagemRepository;
 	
-	@GetMapping
+	@GetMapping("/all")
     public ResponseEntity<List<Postagem>>getAll(){
 		return ResponseEntity.ok(postagemRepository.findAll());
 		
 	}
-	@GetMapping("/id/{id}")
+	@GetMapping("/{id}")
     public ResponseEntity<Postagem>getById(@PathVariable long id){
 		return postagemRepository.findById(id)
 				.map(Resp-> ResponseEntity.ok(Resp))
@@ -51,7 +51,7 @@ public class PostagemController {
 		return ResponseEntity.status(HttpStatus.OK).body(postagemRepository.save(postagem));
 		
 	}
-	@DeleteMapping("/id/{id}")
+	@DeleteMapping("/{id}")
 	public void deletePostagem(@PathVariable long id) {
 		postagemRepository.deleteById(id);
 	}

@@ -34,12 +34,11 @@ public class Tema {
 	private String palavraChave;
 	
 	
-	
 	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("tema")
 	private List<Postagem>postagem;
 	
-	
+	//------------- GETTERS & SETTERS -------------
 	
 	public List<Postagem> getPostagem() {
 		return postagem;
