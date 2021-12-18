@@ -11,4 +11,6 @@ import br.com.furandoabolha.model.Postagem;
 public interface PostagemRepository extends JpaRepository <Postagem, Long>{
  
 	public List<Postagem> findByTituloContainingIgnoreCase(String titulo);
+	
+	public List<Postagem> findAllByOrderByCurtidasAsc();
 }

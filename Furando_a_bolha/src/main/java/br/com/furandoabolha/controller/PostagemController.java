@@ -17,13 +17,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.furandoabolha.Repository.PostagemRepository;
 import br.com.furandoabolha.model.Postagem;
+import br.com.furandoabolha.service.PostagemService;
 
 @RestController
 @RequestMapping ("/postagens")
 @CrossOrigin (origins = "*", allowedHeaders = "*")
 public class PostagemController {
+	
 	@Autowired
     private PostagemRepository postagemRepository;
+	
+	@Autowired
+	private PostagemService postagemService;
+	
+	
+	@GetMapping("/maiscurtidas")
+	public ResponseEntity<List<Postagem>>getAllOrderByCurtida(){
+		return ResponseEntity.ok(postagemRepository.findAllByOrderByCurtidasAsc());
+	}
 	
 	@GetMapping("/all")
     public ResponseEntity<List<Postagem>>getAll(){
@@ -54,6 +65,23 @@ public class PostagemController {
 	@DeleteMapping("/{id}")
 	public void deletePostagem(@PathVariable long id) {
 		postagemRepository.deleteById(id);
+	}
+	
+	
+	//CURTIR R DESCURTIR
+	
+	@PutMapping("/curtir/{id}")
+	public ResponseEntity<Postagem> putCurtirPostagemId (@PathVariable Long id){
+		
+		return ResponseEntity.status(HttpStatus.OK).body(postagemService.curtir(id));
+	
+	}
+
+	@PutMapping("/descurtir/{id}")
+	public ResponseEntity<Postagem> putDescurtirPostagemId (@PathVariable Long id){
+		
+		return ResponseEntity.status(HttpStatus.OK).body(postagemService.descurtir(id));
+	
 	}
 	
 	

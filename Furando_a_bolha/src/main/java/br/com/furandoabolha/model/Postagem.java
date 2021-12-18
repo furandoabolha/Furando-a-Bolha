@@ -28,8 +28,8 @@ import br.com.furandoabolha.configure.AlteracaoDataPostagem;
 @Table(name = "tb_postagem")
 public class Postagem extends AlteracaoDataPostagem implements Serializable {
 
-	
 	private static final long serialVersionUID = 1L;
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,19 +44,24 @@ public class Postagem extends AlteracaoDataPostagem implements Serializable {
 	private String texto;
 
 	@CreationTimestamp
-	@Column(name = "dt_criacao", nullable = false, updatable=false)
+	@Column(name = "dt_criacao", nullable = false, updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private  Date data = new java.sql.Date(System.currentTimeMillis());
+	private Date data = new java.sql.Date(System.currentTimeMillis());
 
 	// Verfifcar na task9
-	//Alteração de data X data fixa de postagem 
-	
-	/*@UpdateTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "dt_alteracao")
-	@JsonFormat(pattern="yyyy-MM-dd  HH:mm")
-	private Date alteracaoData = new java.sql.Date(System.currentTimeMillis());*/	
-	
+	// Alteração de data X data fixa de postagem
+
+	/*
+	 * @UpdateTimestamp
+	 * 
+	 * @Temporal(TemporalType.TIMESTAMP)
+	 * 
+	 * @Column(name = "dt_alteracao")
+	 * 
+	 * @JsonFormat(pattern="yyyy-MM-dd  HH:mm") private Date alteracaoData = new
+	 * java.sql.Date(System.currentTimeMillis());
+	 */
+
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
@@ -65,7 +70,36 @@ public class Postagem extends AlteracaoDataPostagem implements Serializable {
 	@JsonIgnoreProperties("postagem")
 	private Usuario usuario;
 
-	//------------- GETTERS & SETTERS -------------
+	@Column(columnDefinition = "integer default 0")
+	private int curtidas;
+	
+	@Column(columnDefinition = "integer default 0")
+	private int descurtidas;
+
+	// ------------- GETTERS & SETTERS -------------
+
+	
+	
+	
+	
+
+
+	public int getDescurtidas() {
+		return descurtidas;
+	}
+
+	public void setDescurtidas(int descurtidas) {
+		this.descurtidas = descurtidas;
+	}
+
+	public int getCurtidas() {
+		return this.curtidas;
+	}
+	
+	
+	public void setCurtidas(int curtidas) {
+		this.curtidas = curtidas;
+	}
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -114,14 +148,12 @@ public class Postagem extends AlteracaoDataPostagem implements Serializable {
 	public void setData(Date data) {
 		this.data = data;
 	}
-	
-	
-	/*public Date getAlteracaoData() {
-		return alteracaoData;
-	}
 
-	public void setAlteracaoData(Date alteracaoData) {
-		this.alteracaoData = alteracaoData;
-	}*/
+	/*
+	 * public Date getAlteracaoData() { return alteracaoData; }
+	 * 
+	 * public void setAlteracaoData(Date alteracaoData) { this.alteracaoData =
+	 * alteracaoData; }
+	 */
 
 }

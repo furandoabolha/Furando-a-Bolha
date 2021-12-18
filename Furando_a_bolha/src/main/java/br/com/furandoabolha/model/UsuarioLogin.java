@@ -1,4 +1,8 @@
 package br.com.furandoabolha.model;
+import java.time.LocalDate;
+
+
+
 
 
 
@@ -15,6 +19,10 @@ public class UsuarioLogin {
 	private String nome;
 	
 	private String token;
+	
+	private String foto;
+
+	private LocalDate dataNascimento;
 	
 	//------------- GETTERS & SETTERS -------------
 	
@@ -65,8 +73,20 @@ public class UsuarioLogin {
 	public void setTipoUsuario(String tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
 	
+	public LocalDate getDataNascimento() {
+	return dataNascimento;
+	}
+	public void setDataNascimento(LocalDate dataNascimento) {
+	this.dataNascimento = dataNascimento;
+}
 	
-		
 	
 }

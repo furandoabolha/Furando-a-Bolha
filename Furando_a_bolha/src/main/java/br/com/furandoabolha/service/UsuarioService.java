@@ -57,16 +57,19 @@ public class UsuarioService {
 
 	public Optional<Usuario> atualizarUsuario(Usuario usuario) {
 
-		for (Usuario user : this.listarUsuarios()) {
-			if (user.getEmail().equals(usuario.getEmail())) {
-				throw new ResponseStatusException(HttpStatus.CONFLICT, "Ja existe um usuario com esse nome", null);
-			}
-		}
+		if (usuarioRepository.findById(usuario.getId()).isPresent()) {
 
-		if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
+			Optional<Usuario> buscaUsuario = usuarioRepository.findByEmail(usuario.getEmail());
+
+			if (buscaUsuario.isPresent()) {
+
+				if (buscaUsuario.get().getId() != usuario.getId())
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O Usuário já existe!", null);
+
+			}
 
 			int idade = Period.between(usuario.getDataNascimento(), LocalDate.now()).getYears();
-			if (idade < 18)
+			if (idade < 13)
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O Usuário é menor de idade", null);
 			usuario.setSenha(encoder(usuario.getSenha()));
 
@@ -92,6 +95,9 @@ public class UsuarioService {
 				usuarioLogin.get().setNome(usuario.get().getNome());
 				usuarioLogin.get().setSenha(usuario.get().getSenha());
 				usuarioLogin.get().setToken(authHeader);
+				usuarioLogin.get().setFoto(usuario.get().getFoto());
+				usuarioLogin.get().setTipoUsuario(usuario.get().getTipoUsuario());
+				usuarioLogin.get().setDataNascimento(usuario.get().getDataNascimento());
 
 				return usuarioLogin;
 			}

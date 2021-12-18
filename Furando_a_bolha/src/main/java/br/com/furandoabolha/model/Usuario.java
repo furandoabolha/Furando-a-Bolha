@@ -43,13 +43,16 @@ private String senha;
 
 private String tipoUsuario;
 
+private String foto;
 
 
-@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 @JsonIgnoreProperties("usuario")
 private List<Postagem>postagem;
 
 //------------- GETTERS & SETTERS -------------
+
+
 
 public LocalDate getDataNascimento() {
 	return dataNascimento;
@@ -92,6 +95,13 @@ public String getSenha() {
 }
 public void setSenha(String senha) {
 	this.senha = senha;
+}
+
+public String getFoto() {
+	return foto;
+}
+public void setFoto(String foto) {
+	this.foto = foto;
 }
 	
 }
